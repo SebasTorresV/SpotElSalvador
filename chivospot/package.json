@@ -1,0 +1,43 @@
+{
+  "name": "chivospot",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "npm-run-all --parallel dev:backend dev:db",
+    "dev:backend": "nodemon backend/server.js",
+    "dev:db": "echo 'Base de datos gestionada por docker-compose'",
+    "db:migrate": "node ./scripts/run-sql.js migrations",
+    "db:seed": "node ./scripts/run-sql.js seeds",
+    "lint": "eslint .",
+    "format": "prettier --write .",
+    "build": "echo 'Sin pasos de build adicionales'",
+    "test": "npm-run-all test:unit test:e2e",
+    "test:unit": "jest",
+    "test:e2e": "npx playwright test"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "compression": "^1.7.4",
+    "cookie-parser": "^1.4.6",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.18.2",
+    "express-rate-limit": "^6.7.0",
+    "helmet": "^7.0.0",
+    "jsonwebtoken": "^9.0.2",
+    "morgan": "^1.10.0",
+    "pg": "^8.11.3",
+    "pino": "^8.15.0",
+    "uuid": "^9.0.1",
+    "zod": "^3.22.4"
+  },
+  "devDependencies": {
+    "eslint": "^8.57.0",
+    "jest": "^29.7.0",
+    "nodemon": "^3.0.3",
+    "npm-run-all": "^4.1.5",
+    "playwright": "^1.41.1",
+    "prettier": "^3.2.5"
+  }
+}

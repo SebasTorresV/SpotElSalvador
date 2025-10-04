@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Panel de Administración - ChivoSpot</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="" />
+</head>
+<body data-page="admin">
+  <header class="main-header">
+    <div class="logo">Admin · ChivoSpot</div>
+    <nav>
+      <a href="index.html" class="btn secondary">Portal público</a>
+      <button id="adminLogoutBtn" class="btn">Cerrar sesión</button>
+    </nav>
+  </header>
+
+  <main class="dashboard">
+    <section class="card" aria-labelledby="moderationHeading">
+      <div class="card-header">
+        <h2 id="moderationHeading">Bandeja de moderación</h2>
+        <div class="filters-inline">
+          <label>Estado
+            <select id="adminStateFilter">
+              <option value="pendiente">Pendiente</option>
+              <option value="rechazado">Rechazado</option>
+              <option value="aprobado">Aprobado</option>
+              <option value="archivado">Archivado</option>
+            </select>
+          </label>
+          <label>Categoría
+            <select id="adminCategoryFilter"></select>
+          </label>
+          <label>Departamento
+            <select id="adminDepartmentFilter"></select>
+          </label>
+          <label>Fecha desde
+            <input type="date" id="adminFrom" />
+          </label>
+          <label>Fecha hasta
+            <input type="date" id="adminTo" />
+          </label>
+        </div>
+      </div>
+      <div id="adminQueue" class="list"></div>
+    </section>
+
+    <section class="card" aria-labelledby="reviewHeading">
+      <h2 id="reviewHeading">Revisión de evento</h2>
+      <div id="reviewContent" class="review">
+        <div class="review-map" id="reviewMap"></div>
+        <div class="review-body">
+          <div id="reviewDetails"></div>
+          <div class="actions">
+            <button id="approveBtn" class="btn">Aprobar</button>
+            <button id="rejectBtn" class="btn danger">Rechazar</button>
+            <button id="archiveBtn" class="btn secondary">Archivar</button>
+            <button id="featureBtn" class="btn secondary">Destacar</button>
+          </div>
+          <label for="moderationComment">Comentario</label>
+          <textarea id="moderationComment" rows="3"></textarea>
+          <div id="auditLog" class="scroll"></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="card" aria-labelledby="overviewHeading">
+      <h2 id="overviewHeading">Visión general</h2>
+      <div id="adminOverview" class="grid-2"></div>
+    </section>
+  </main>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
+  <script type="module" src="js/admin.js"></script>
+</body>
+</html>

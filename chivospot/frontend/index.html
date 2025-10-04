@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ChivoSpot - Descubre eventos en El Salvador</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha512-sA+e2f1ZQwM1YcSgdOwo76gyyeVRZ9erjRzCQXDpUe1koRaSPo6e7i0rGUNShUMpOWcZH/5LiCFYl8YHfGkGkg==" crossorigin="" />
+</head>
+<body data-page="visitante">
+  <header class="main-header" role="banner">
+    <div class="logo">ChivoSpot</div>
+    <nav aria-label="Principal">
+      <button id="loginBtn" class="btn secondary">Iniciar sesión</button>
+      <button id="favoritesBtn" class="btn" aria-label="Favoritos">
+        Favoritos (<span id="favoritesCount">0</span>)
+      </button>
+      <button id="remindersBtn" class="btn" aria-label="Recordatorios">
+        Recordatorios (<span id="remindersCount">0</span>)
+      </button>
+    </nav>
+  </header>
+
+  <main class="layout" role="main">
+    <section class="filters" aria-label="Filtros de búsqueda">
+      <form id="searchForm">
+        <label for="searchInput">Buscar</label>
+        <input id="searchInput" name="q" type="search" placeholder="Busca conciertos, ferias, teatro..." autocomplete="off" />
+
+        <div class="tabs" role="tablist" aria-label="Rango temporal">
+          <button role="tab" aria-selected="true" aria-controls="tab-now" id="tab-now-btn" data-range="now">Ahora</button>
+          <button role="tab" aria-selected="false" aria-controls="tab-soon" id="tab-soon-btn" data-range="soon">Próximos</button>
+        </div>
+
+        <div class="filters-grid">
+          <label>
+            Departamento
+            <select id="departmentSelect" name="department_id">
+              <option value="">Todos</option>
+            </select>
+          </label>
+          <label>
+            Municipio
+            <select id="municipalitySelect" name="municipality_id" disabled>
+              <option value="">Todos</option>
+            </select>
+          </label>
+          <label>
+            Categorías
+            <select id="categorySelect" name="category_id" multiple size="5" aria-describedby="categoryHelp">
+            </select>
+            <span id="categoryHelp" class="hint">Mantén Ctrl/Cmd para seleccionar múltiples</span>
+          </label>
+          <label>
+            Precio máximo (USD)
+            <input type="number" id="priceMax" name="price_max" min="0" step="0.5" />
+          </label>
+          <label>
+            Desde
+            <input type="date" id="dateFrom" name="date_from" />
+          </label>
+          <label>
+            Hasta
+            <input type="date" id="dateTo" name="date_to" />
+          </label>
+          <label class="checkbox">
+            <input type="checkbox" id="freeOnly" name="free_only" />
+            Solo eventos gratuitos
+          </label>
+          <label class="checkbox">
+            <input type="checkbox" id="visibleArea" name="visible_area" />
+            Filtrar por mapa visible
+          </label>
+        </div>
+
+        <div class="order">
+          <label for="orderSelect">Ordenar por</label>
+          <select id="orderSelect" name="order">
+            <option value="date">Fecha</option>
+            <option value="distance">Distancia</option>
+            <option value="popularity">Popularidad</option>
+          </select>
+        </div>
+      </form>
+    </section>
+
+    <section class="content">
+      <section class="event-list" aria-label="Resultados">
+        <ul id="eventsContainer" class="events" aria-live="polite"></ul>
+        <button id="loadMoreBtn" class="btn secondary">Cargar más</button>
+      </section>
+      <aside class="map" aria-label="Mapa de eventos">
+        <div id="map" role="region" aria-label="Mapa interactivo"></div>
+      </aside>
+    </section>
+  </main>
+
+  <div id="eventDetailModal" class="modal" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="eventDetailTitle">
+    <div class="modal-content">
+      <button class="modal-close" aria-label="Cerrar">×</button>
+      <h2 id="eventDetailTitle"></h2>
+      <div id="eventDetailBody"></div>
+    </div>
+  </div>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha512-sA+pqxG72Xd1LSeXfhBF3nf6/Dr7fP5AnbcW2CYwiVdc+GqOR/mdrIW6DCe4kYvNysGEKMluSleqrs9jwELyZA==" crossorigin=""></script>
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>
