@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Panel de Organizadores - ChivoSpot</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="" />
+</head>
+<body data-page="organizador">
+  <header class="main-header">
+    <div class="logo">Organizador · ChivoSpot</div>
+    <nav>
+      <a href="index.html" class="btn secondary">Volver al portal</a>
+      <button id="logoutBtn" class="btn">Cerrar sesión</button>
+    </nav>
+  </header>
+
+  <main class="dashboard">
+    <section aria-labelledby="orgProfileHeading" class="card">
+      <h2 id="orgProfileHeading">Perfil de organización</h2>
+      <form id="orgProfileForm" class="form-grid">
+        <label>Nombre
+          <input type="text" id="orgName" name="nombre" required />
+        </label>
+        <label>Teléfono
+          <input type="tel" id="orgPhone" name="telefono" />
+        </label>
+        <label>Sitio web
+          <input type="url" id="orgWebsite" name="sitio" />
+        </label>
+        <label>Logo URL
+          <input type="url" id="orgLogo" name="logo_url" />
+        </label>
+        <label>Redes sociales (JSON)
+          <textarea id="orgSocial" name="redes_json" rows="3" aria-describedby="socialHelp"></textarea>
+          <span id="socialHelp" class="hint">Ej: {"facebook":"https://fb.com/..."}</span>
+        </label>
+        <button class="btn" type="submit">Guardar cambios</button>
+      </form>
+    </section>
+
+    <section aria-labelledby="venuesHeading" class="card">
+      <div class="card-header">
+        <h2 id="venuesHeading">Sedes</h2>
+        <button id="addVenueBtn" class="btn">Nueva sede</button>
+      </div>
+      <div id="venuesList" class="list"></div>
+      <div id="venueMap" class="mini-map"></div>
+    </section>
+
+    <section aria-labelledby="eventFormHeading" class="card">
+      <h2 id="eventFormHeading">Crear / Editar evento</h2>
+      <form id="eventForm" class="form-grid" novalidate>
+        <input type="hidden" name="id" id="eventId" />
+        <label>Título
+          <input type="text" name="titulo" id="eventTitle" required maxlength="120" />
+        </label>
+        <label>Categoría
+          <select name="category_id" id="eventCategory" required></select>
+        </label>
+        <label>Descripción
+          <textarea name="descripcion" id="eventDescription" rows="4" maxlength="1000"></textarea>
+        </label>
+        <label>Departamento
+          <select name="department_id" id="eventDepartment" required></select>
+        </label>
+        <label>Municipio
+          <select name="municipality_id" id="eventMunicipality"></select>
+        </label>
+        <label>Dirección
+          <input type="text" name="direccion" id="eventAddress" required />
+        </label>
+        <label>Coordenadas (lat, lng)
+          <input type="text" name="coords" id="eventCoords" placeholder="13.6929,-89.2182" />
+        </label>
+        <label>Fecha de inicio
+          <input type="datetime-local" name="fecha_inicio" id="eventStart" required />
+        </label>
+        <label>Fecha de fin
+          <input type="datetime-local" name="fecha_fin" id="eventEnd" />
+        </label>
+        <label>Precio (USD)
+          <input type="number" name="precio" id="eventPrice" min="0" step="0.5" />
+        </label>
+        <label>Etiquetas
+          <input type="text" name="etiquetas" id="eventTags" placeholder="concierto, familiar" />
+        </label>
+        <label>Imagen principal URL
+          <input type="url" name="imagen_url" id="eventImage" />
+        </label>
+        <div class="form-actions">
+          <button type="button" id="saveDraftBtn" class="btn secondary">Guardar borrador</button>
+          <button type="submit" class="btn">Enviar a revisión</button>
+        </div>
+      </form>
+      <section class="importer" aria-labelledby="importHeading">
+        <h3 id="importHeading">Importar eventos CSV/ICS</h3>
+        <input type="file" id="importFile" accept=".csv,.ics" />
+        <button id="previewImportBtn" class="btn secondary">Previsualizar</button>
+        <div id="importPreview" class="scroll"></div>
+      </section>
+    </section>
+
+    <section aria-labelledby="eventListHeading" class="card">
+      <div class="card-header">
+        <h2 id="eventListHeading">Mis eventos</h2>
+        <select id="eventStateFilter">
+          <option value="">Todos</option>
+          <option value="borrador">Borrador</option>
+          <option value="pendiente">Pendiente</option>
+          <option value="aprobado">Aprobado</option>
+          <option value="rechazado">Rechazado</option>
+          <option value="cancelado">Cancelado</option>
+        </select>
+      </div>
+      <div id="organizerEvents" class="list"></div>
+    </section>
+  </main>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
+  <script type="module" src="js/organizador.js"></script>
+</body>
+</html>

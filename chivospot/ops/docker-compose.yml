@@ -1,0 +1,43 @@
+version: '3.9'
+services:
+  db:
+    image: postgis/postgis:15-3.4
+    environment:
+      POSTGRES_DB: chivospot
+      POSTGRES_USER: chivo
+      POSTGRES_PASSWORD: chivo
+      TZ: America/El_Salvador
+    ports:
+      - "5432:5432"
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U chivo -d chivospot"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+  backend:
+    build:
+      context: ..
+      dockerfile: ops/Dockerfile.backend
+    environment:
+      NODE_ENV: development
+      PORT: 4000
+      DATABASE_URL: postgres://chivo:chivo@db:5432/chivospot
+      JWT_SECRET: supersecretjwtstring
+      CORS_ORIGIN: http://localhost:4000
+      SESSION_COOKIE_SECURE: 'false'
+      TZ: America/El_Salvador
+    depends_on:
+      db:
+        condition: service_healthy
+    ports:
+      - "4000:4000"
+    volumes:
+      - ../backend:/app/backend
+      - ../frontend:/app/frontend
+      - ../package.json:/app/package.json
+      - ../package-lock.json:/app/package-lock.json
+    command: npm run dev:backend
+volumes:
+  db_data:

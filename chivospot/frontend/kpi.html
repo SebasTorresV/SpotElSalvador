@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>KPI de Organizadores - ChivoSpot</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body data-page="kpi">
+  <header class="main-header">
+    <div class="logo">Métricas · ChivoSpot</div>
+    <nav>
+      <a href="organizador.html" class="btn secondary">Volver</a>
+      <button id="kpiLogoutBtn" class="btn">Cerrar sesión</button>
+    </nav>
+  </header>
+
+  <main class="dashboard">
+    <section class="card" aria-labelledby="kpiFiltersHeading">
+      <h2 id="kpiFiltersHeading">Filtros</h2>
+      <form id="kpiFilters" class="filters-inline">
+        <label for="kpiEventSelect">Evento</label>
+        <select id="kpiEventSelect"></select>
+        <label>Desde
+          <input type="date" id="kpiFrom" />
+        </label>
+        <label>Hasta
+          <input type="date" id="kpiTo" />
+        </label>
+        <label>Comparar con periodo anterior
+          <input type="checkbox" id="kpiCompare" />
+        </label>
+        <button class="btn" type="submit">Actualizar</button>
+        <button class="btn secondary" type="button" id="kpiExport">Exportar CSV</button>
+      </form>
+    </section>
+
+    <section class="card" aria-labelledby="summaryHeading">
+      <h2 id="summaryHeading">Resumen</h2>
+      <div id="kpiSummary" class="grid-3"></div>
+    </section>
+
+    <section class="card" aria-labelledby="timeseriesHeading">
+      <h2 id="timeseriesHeading">Tendencia diaria</h2>
+      <canvas id="kpiTimeseries" role="img" aria-label="Serie temporal de interacciones"></canvas>
+    </section>
+
+    <section class="card" aria-labelledby="distributionHeading">
+      <h2 id="distributionHeading">Distribución por departamento/municipio</h2>
+      <div id="kpiDistribution" class="grid-2"></div>
+    </section>
+  </main>
+
+  <script type="module" src="js/kpi.js"></script>
+</body>
+</html>
